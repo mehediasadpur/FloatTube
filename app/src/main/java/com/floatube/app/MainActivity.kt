@@ -1,5 +1,5 @@
 package com.floatube.app
-import androidx.annotation.RequiresApi
+
 import android.app.Activity
 import android.app.PictureInPictureParams
 import android.content.pm.PackageManager
@@ -21,6 +21,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import android.annotation.TargetApi
+
 class MainActivity : Activity() {
     private lateinit var root: LinearLayout
     private lateinit var urlInput: EditText
@@ -128,7 +129,7 @@ class MainActivity : Activity() {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
+    @TargetApi(Build.VERSION_CODES.O)
     override fun onPictureInPictureModeChanged(isInPictureInPictureMode: Boolean) {
         super.onPictureInPictureModeChanged(isInPictureInPictureMode)
         val topViews = listOf<View>(
