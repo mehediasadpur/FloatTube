@@ -22,7 +22,6 @@ jobs:
     # This sets up a global Gradle build tool since your project lacks one
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@v4
-
     # We use 'gradle' directly instead of './gradlew'
         - name: Assemble Debug APK
       run: gradle assembleDebug -Pandroid.injected.kotlin.jvm.target=17 -Pandroid.injected.java.target=17
