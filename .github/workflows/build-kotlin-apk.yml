@@ -19,15 +19,19 @@ jobs:
         distribution: 'zulu'
         java-version: '17'
 
-    # This sets up a global Gradle build tool since your project lacks one
+    # This sets up a global Gradle build tool since your project lacks a local wrapper
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@v4
-    # We use 'gradle' directly instead of './gradlew'
-        - name: Assemble Debug APK
-      run: gradle assembleDebug -Pandroid.injected.kotlin.jvm.target=17 -Pandroid.injected.java.target=17
+
+    # Fixed indentation and optimized flags to forcefully sync Java compiler variants
+    - name: Assemble Debug APK
+      run: |
+        gradle assembleDebug \
+          -Dorg.gradle.java.home=$JAVA_HOME \
+          -Pandroid.kotlinOptions.jvmTarget=17
 
     - name: Upload Finished APK
       uses: actions/upload-artifact@v4
       with:
         name: kotlin-debug-apk
-        path: "**/build/outputs/apk/debug/*.apk" # Wildcard path to find the APK anywhere it lands
+        path: "**/build/outputs/apk/debug/*.apk"
