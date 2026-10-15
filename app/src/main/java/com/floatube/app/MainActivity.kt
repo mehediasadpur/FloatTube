@@ -20,8 +20,8 @@ import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import android.annotation.TargetApi
 import androidx.annotation.RequiresApi
-
 class MainActivity : Activity() {
     private lateinit var root: LinearLayout
     private lateinit var urlInput: EditText
