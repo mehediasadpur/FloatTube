@@ -2,8 +2,8 @@ name: Build Android Kotlin APK
 
 on:
   push:
-    branches: [ "main", "master" ] # Triggers whenever you push code to these branches
-  workflow_dispatch: # Allows you to manually trigger the build from the Actions tab
+    branches: [ "main", "master" ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -18,16 +18,17 @@ jobs:
       with:
         distribution: 'zulu'
         java-version: '17'
-        cache: 'gradle' # Caches dependencies so future builds run faster
 
-    - name: Grant Execute Permission to Gradle Wrapper
-      run: chmod +x gradlew
+    # This sets up a global Gradle build tool since your project lacks one
+    - name: Setup Gradle
+      uses: gradle/actions/setup-gradle@v4
 
+    # We use 'gradle' directly instead of './gradlew'
     - name: Assemble Debug APK
-      run: ./gradlew assembleDebug
+      run: gradle assembleDebug
 
     - name: Upload Finished APK
       uses: actions/upload-artifact@v4
       with:
         name: kotlin-debug-apk
-        path: app/build/outputs/apk/debug/app-debug.apk
+        path: "**/build/outputs/apk/debug/*.apk" # Wildcard path to find the APK anywhere it lands
